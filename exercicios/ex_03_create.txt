@@ -1,0 +1,22 @@
+1.	Insira 5 novos registros conforme descrições abaixo:
+Titulo = Titulo U
+Descrição = Java
+Concluída = verdadeiro
+
+ db.tasks.update({_id: ObjectId("5de6419a89ef1177d42fef21")}, {$set: {"titulo": "Titulo Uava", "descricao"  : "Java Best", "concluida": "true"}})
+
+Titulo = Titulo O
+Descrição = CSharp
+Concluída = falso
+
+ db.tasks.update({_id: ObjectId("5de6429189ef1177d42fef23")}, {$set: {"titulo": "T", "descricao"  : "Java Best", "concluida": "true"}})
+
+Titulo = Titulo P
+Descrição = Firebase
+
+Titulo = Titulo Y
+Descrição = Microsoft
+
+Titulo = Titulo R
+Descrição = Oracle
+Data de Inclusão = data de hoje

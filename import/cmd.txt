@@ -1,0 +1,1 @@
+mongoimport --db todo -c tasks --type csv --file tasks.csv --headerline

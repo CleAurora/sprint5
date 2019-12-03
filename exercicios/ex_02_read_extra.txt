@@ -1,0 +1,4 @@
+Ordene pela data de inclusão.
+Ordene pelas descrições.
+Ordene pela quantidade de caracteres das descrições.
+Procure somente registros aonde o dia da data de inclusão seja igual a 01.

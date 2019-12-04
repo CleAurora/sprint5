@@ -1,0 +1,127 @@
+> db.herois.remove({})
+> db.herois.drop()
+
+1.	Selecione todos os registros.
+db.alunos.find()
+
+2.	Selecione todos os registros e deixe a com apresentação melhor visível.
+db.alunos.find().pretty()
+
+3.	Selecione todos os registros em que o nome seja igual a ‘Aya’.
+db.alunos.find({"nome": "Aya"}).pretty()
+
+4.	Selecione todos os registros em que o aluno nasceu em São Paulo.
+> db.alunos.find({"nasceuEmSp": true}).pretty()
+
+5.	Selecione todos os registros em que contenha a título do livro igual a 
+“Java - Web Developers”.
+db.alunos.find({"livros.titulo":"Java - Web Developers"}).pretty()
+
+6.	Selecione todos os registros em que a aluna tenha o livro “Clean Code A” e 
+o nome “Helena”.
+db.alunos.find({"livros.titulo":"Clean Code A", "livros.leu" : true}, {"nome": "Helena"}).pretty()
+
+7.	Selecione todos os registros em que a aluna não tenha nascido em sp e tenha
+ o livro Cangaceiro JavaScript.
+db.alunos.find({"livros.titulo":"Cangaceiro JavaScript"}, {"nasceuEmSp": false}).pretty()
+
+8.	Selecione todos os registros em que contenham os alunos que tenham o livro 
+Java – Web Developers ou Clean Code B. Primeiro: realize o exercício com o operador 
+ou e posteriormente realize o exercício com o operador in.
+db.alunos.find({$or: [{"livros.titulo":"Java – Web Developers"}, {"livros.titulo":"Clean Code B"}]}).pretty()
+db.alunos.find({"livros.titulo": {$in: ["Java – Web Developers", "Clean Code B"]}}).pretty()
+
+9.	Pegue o exercício acima e inclua também aonde o aluno pode ter nascido em sp.
+db.alunos.find({$or: [{"livros.titulo": {$in: ["Java – Web Developers", "Clean Code B"]}}, {"nasceuEmSp": true}]}).pretty()
+db.alunos.find({$or: [{"livros.titulo":"Java – Web Developers"}, {"livros.titulo":"Clean Code B"}, {"nasceuEmSp": true}]}).pretty()
+
+10.	Procure todos os alunos que tenham nascido em são paulo ou os livros ‘MySQL’
+ e ‘MongoDB’.
+db.alunos.find({$or: [{"livros.titulo": {$in: ["MySQL", "MongoDB"]}}, {"nasceuEmSp": true}]}).pretty()
+
+
+Exercícios
+1.	Selecione todos os registros em que os livros contenham em qualquer parte da 
+palavra, 'Clean'.
+db.alunos.find({"livros.titulo": /clean/i}).pretty()
+
+2.	Selecione todos os registros em que os títulos dos livros terminem com a 
+letra 'S'.
+db.alunos.find({"livros.titulo": /s$/i}).pretty()
+
+3.	Selecione todos os registros em que todos os livros terminem com a letra 't'.
+db.alunos.find({"livros.titulo": /t$/i}).pretty()
+
+4.	Selecione todos os nomes das alunos terminem com a letra 'k' ou 'o'.
+db.alunos.find({$or: [{"nome": /o$/}, {"nome": /k$/}]}).pretty()
+ db.alunos.find({"nome": {$in: [/k$/, /o$/]}}).pretty()
+
+5.	Selecione todos os registros em que os nomes comecem com a letra 'a'.
+> db.alunos.find({nome: "a"}).pretty()
+
+6.	Selecione todos os registros em que nomes comecem com a letra 'a' ou 'h'.
+> db.alunos.find({"nome": {$in: [/^h/, /^a/]}}).pretty()
+ db.alunos.find({$or: [{"nome": /^a/}, {"nome": /^h/}]}).pretty()
+
+Ordenação
+ordena pelo campo _id de forma crescente
+db.alunos.find().sort({_id: 1}).limit().pretty()
+
+ordena pelo campo _id de forma decrescente
+db.alunos.find().sort({_id: -1}).limit().pretty()
+
+ordena pelo campo nome de forma crescente e pega o primeiro registro
+db.alunos.find().sort({_id: 1}).limit(1).pretty()
+
+seleciona somente o primeiro registro
+db.alunos.find().limit(1).pretty()
+ 
+Exercícios
+1.	Crie 5 novos registros de alunos.
+Deve conter os critérios abaixo. 3 em sp e 2 que não nasceram em sp.
+Deve conter pelo menos alguns dos livros colocados: HTML, CSS, Design, J
+avaScript, Java, C#, MySQL, MongoDB.
+A data de nascimento deve ser inferior a data atual.
+db.alunos.insert({"nome": "Natalia", "nasceuEmSp": true, "livros": [{"titulo": "CSS", "leu": true}, {"titulo": "HTML", "leu": false}]})
+
+Exercícios
+1.	Atualize os registros criados no exercício anterior, com os filtros 
+abaixo (não se esqueça de buscar pelo _id):
+Deixe todos os registros criados acima que estiverem como true para false, e vice-versa. 
+Atualize a data de nascimento de 2 alunos.
+Inclua pelo menos 3 livros que elas tenham lido.
+
+Exercícios
+1.	Exclua 5 itens dada uma determinada condição.
+Exemplo:
+Por ordenação de inserção, os dois primeiros que foram inseridos.
+Por ordem alfabética, os dois primeiros.
+Por ordem de signo decrescente, o primeiro signo.
+
+
+
+
+
+ 
+Desafio Extra
+Por ordem de habilidades, a que possui o maior registro de habilidades.
+db.alunos.aggregate([
+   {
+      $project: {
+         item: 1,
+         numeroDeHabilidades: { $cond: { if: { $isArray: "$habilidades" }, then: { $size: "$habilidades" }, else: "NA"} }
+      }
+   }
+] )
+Verificar o registro que possui a maior quantidade de habilidades.
+db.alunos.find({ _id : ObjectId("5d811ade31c542921b14417b") }).sort({ _id : -1 }).limit(3).pretty()
+Com ordenação
+db.alunos.aggregate([
+   {
+      $project: {
+         item: 1,
+         numeroDeHabilidades: { $cond: { if: { $isArray: "$habilidades" }, then: { $size: "$habilidades" }, else: "NA"} }
+      }
+   },
+{ $sort: { numeroDeHabilidades: 1 } }
+] ) 

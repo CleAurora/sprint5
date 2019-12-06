@@ -83,6 +83,11 @@ Deve conter pelo menos alguns dos livros colocados: HTML, CSS, Design, J
 avaScript, Java, C#, MySQL, MongoDB.
 A data de nascimento deve ser inferior a data atual.
 db.alunos.insert({"nome": "Natalia", "nasceuEmSp": true, "livros": [{"titulo": "CSS", "leu": true}, {"titulo": "HTML", "leu": false}]})
+db.alunos.insert({"nome": "Alan", "nasceuEmSp": true, "livros": [{"titulo": "C#", "leu": true}, {"titulo": "Java", "leu": false}]})
+db.alunos.insert({"nome": "Ninja", "nasceuEmSp": true, "livros": [{"titulo": "Design", "leu": true}, {"titulo": "MySQL", "leu": false}]})
+db.alunos.insert({"nome": "Helena", "nasceuEmSp": false, "livros": [{"titulo": "MongoDB", "leu": true}, {"titulo": "HTML", "leu": false}]})
+db.alunos.insert({"nome": "Gabi", "nasceuEmSp": false, "livros": [{"titulo": "JavaScript", "leu": true}, {"titulo": "CSS", "leu": false}]})
+
 
 Exercícios
 1.	Atualize os registros criados no exercício anterior, com os filtros 
